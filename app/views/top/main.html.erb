@@ -1,4 +1,7 @@
 
 <h1>ログイン成功</h1>
 
-<p>ようこそ</p>
+<p>ようこそ、<%= session[:login_uid] %> さん！</p>
+
+<%= link_to "ログアウト", top_logout_path,
+    data: { turbo_method: :delete } %>

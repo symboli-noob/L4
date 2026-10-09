@@ -12,11 +12,18 @@ class TopController < ApplicationController
     uid = params[:uid]
     pass = params[:pass]
 
-    if uid == "kindai" && pass == "sanriko"
-      session[:login_uid] = uid
+    user = User.find_by(uid: uid, pass: pass)
+
+    if user
+      session[:login_uid] = user.uid
       redirect_to top_main_path
     else
-      render :error
+      render :error, status: :unprocessable_entity
     end
+  end
+
+  def logout
+    session.delete(:login_uid)
+    redirect_to top_main_path
   end
 end
